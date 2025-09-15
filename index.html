@@ -15,63 +15,21 @@
     body {
       font-family: Arial, sans-serif;
       line-height: 1.6;
+      background: #f4f4f4;
       color: #333;
     }
 
-    a {
-      text-decoration: none;
-    }
-
-    /* Hero Section */
-    .hero {
+    .body-container {
       position: relative;
       width: 100%;
-      height: 100vh;
-      background: url("gym image.jpg") no-repeat center center/cover;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      color: white;
+      max-width: 1320px;
+      margin: auto;
     }
 
-    .hero-overlay {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5);
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero-content h1 {
-      font-size: 50px;
-      margin-bottom: 20px;
-      color: #00aaff;
-    }
-
-    .hero-content p {
-      font-size: 20px;
-      margin-bottom: 30px;
-    }
-
-    .btn-primary {
-      background: #00aaff;
-      color: white;
-      padding: 12px 28px;
-      border-radius: 6px;
-      font-size: 18px;
-      font-weight: bold;
-      transition: 0.3s;
-      border: none;
-      cursor: pointer;
-    }
-
-    .btn-primary:hover {
-      background: #0088cc;
+    .body-container img {
+      width: 100%;
+      height: auto;
+      display: block;
     }
 
     /* Navbar */
@@ -84,7 +42,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 15px 40px;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.5);
       color: white;
       z-index: 10;
     }
@@ -97,33 +55,70 @@
 
     nav {
       display: flex;
-      gap: 25px;
+      gap: 30px;
       align-items: center;
     }
 
     nav a {
-      color: white;
+      text-decoration: none;
       font-size: 18px;
-      transition: 0.3s;
+      color: white;
+      transition: color 0.3s ease;
     }
 
     nav a:hover {
       color: #00aaff;
     }
 
-    nav .btn-primary {
-      font-size: 16px;
-      padding: 8px 16px;
+    nav .login-btn,
+    nav .signup-btn {
+      background-color: #00aaff;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 4px;
+      font-size: 18px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    nav .login-btn:hover,
+    nav .signup-btn:hover {
+      background-color: #0088cc;
+    }
+
+    /* Center button */
+    .center-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #00aaff;
+      border: none;
+      padding: 15px 40px;
+      border-radius: 6px;
+      font-size: 20px;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      z-index: 5;
+    }
+
+    .center-btn:hover {
+      background-color: #0088cc;
+      transform: translate(-50%, -50%) scale(1.05);
     }
 
     /* Sections */
     section {
-      padding: 80px 20px;
+      padding: 60px 20px;
       text-align: center;
     }
 
     section h2 {
-      font-size: 36px;
+      font-size: 32px;
       margin-bottom: 20px;
       color: #00aaff;
     }
@@ -131,74 +126,44 @@
     section p {
       max-width: 800px;
       margin: auto;
-      font-size: 18px;
+      margin-bottom: 30px;
     }
 
-    /* About */
-    .about {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      gap: 40px;
-    }
-
-    .about img {
-      max-width: 400px;
-      border-radius: 12px;
-    }
-
-    .about-text {
-      max-width: 500px;
-      text-align: left;
-    }
-
-    /* Cards Grid */
-    .grid {
+    /* Cards */
+    .card-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 25px;
-      margin-top: 40px;
+      gap: 20px;
+      margin-top: 30px;
     }
 
     .card {
-      background: #f9f9f9;
-      padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
     }
 
     .card:hover {
       transform: translateY(-5px);
     }
 
-    .card h3 {
-      margin-bottom: 12px;
-      color: #00aaff;
-    }
-
-    /* Trainers */
-    .trainer img {
+    .card img {
       width: 100%;
-      border-radius: 50%;
-      max-width: 150px;
+      border-radius: 8px;
       margin-bottom: 15px;
     }
 
-    /* Pricing */
-    .pricing .card {
-      border: 2px solid #00aaff;
-    }
-
-    /* Contact Form */
-    .contact-form {
+    /* Contact form */
+    form {
       max-width: 600px;
       margin: auto;
       text-align: left;
     }
 
-    .contact-form input, .contact-form textarea {
+    form input,
+    form textarea {
       width: 100%;
       padding: 12px;
       margin-bottom: 15px;
@@ -206,44 +171,36 @@
       border-radius: 6px;
     }
 
-    .contact-form button {
-      width: 100%;
+    form button {
+      background: #00aaff;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    form button:hover {
+      background: #0088cc;
     }
 
     /* Footer */
     footer {
       background: #111;
-      color: #fff;
+      color: #aaa;
       padding: 20px;
       text-align: center;
+      margin-top: 40px;
     }
 
-    /* Mobile */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-      gap: 5px;
-    }
-
-    .hamburger span {
-      width: 25px;
-      height: 3px;
-      background: white;
-      transition: 0.3s;
-    }
-
+    /* Responsive */
     @media (max-width: 768px) {
-      .about {
-        flex-direction: column;
-        text-align: center;
-      }
-
       nav {
         position: absolute;
         top: 60px;
         right: 0;
-        background: rgba(0,0,0,0.9);
+        background: rgba(0, 0, 0, 0.9);
         flex-direction: column;
         width: 200px;
         padding: 20px;
@@ -258,66 +215,78 @@
         display: flex;
       }
     }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: white;
+      transition: 0.3s;
+    }
   </style>
 </head>
 <body>
+  <div class="body-container">
+    <img src="gym image.jpg" alt="Gym" />
 
-  <!-- Navbar -->
-  <header>
-    <div class="logo"><h2>TRAINING GYM</h2></div>
-    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
-    <nav id="nav-menu">
-      <a href="#">Home</a>
-      <a href="#about">About</a>
-      <a href="#programs">Programs</a>
-      <a href="#trainers">Trainers</a>
-      <a href="#pricing">Plans</a>
-      <a href="#contact">Contact</a>
-      <a href="login.html"><button class="btn-primary">Login</button></a>
-    </nav>
-  </header>
+    <!-- Navbar -->
+    <header>
+      <div class="logo">
+        <h2>TRAINING GYM</h2>
+      </div>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <h1>Welcome to Training Gym</h1>
-      <p>Transform your body. Transform your life.</p>
-      <a href="#pricing"><button class="btn-primary">Join Now</button></a>
-    </div>
-  </section>
+      <!-- Hamburger -->
+      <div class="hamburger" id="hamburger" aria-label="Menu" aria-controls="nav-menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <nav id="nav-menu">
+        <a href="#">HOME</a>
+        <a href="#about">ABOUT</a>
+        <a href="#services">SERVICES</a>
+        <a href="#trainers">TRAINERS</a>
+        <a href="#contact">CONTACT</a>
+        <a href="login.html"><button class="login-btn">LOGIN</button></a>
+        <a href="signup.html"><button class="signup-btn">SIGN UP</button></a>
+      </nav>
+    </header>
+
+    <!-- Center Button -->
+    <a href="join now.html"><button class="center-btn">JOIN NOW</button></a>
+  </div>
 
   <!-- About Section -->
   <section id="about">
     <h2>About Us</h2>
-    <div class="about">
-      <img src="about-gym.jpg" alt="Gym Training">
-      <div class="about-text">
-        <p>At Training Gym, we believe fitness is not just about lifting weights – it’s about building strength, confidence, and a healthy lifestyle. With expert trainers and world-class equipment, we help you achieve your goals.</p>
-        <button class="btn-primary">Learn More</button>
-      </div>
-    </div>
+    <p>Welcome to Training Gym! We are committed to helping you achieve your fitness goals with expert guidance, modern equipment, and personalized programs designed just for you.</p>
   </section>
 
-  <!-- Programs Section -->
-  <section id="programs">
-    <h2>Our Programs</h2>
-    <div class="grid">
+  <!-- Services Section -->
+  <section id="services">
+    <h2>Our Services</h2>
+    <div class="card-container">
       <div class="card">
-        <h3>💪 Strength Training</h3>
-        <p>Build muscle and boost endurance with guided strength sessions.</p>
+        <img src="weights.jpg" alt="Weight Training">
+        <h3>Weight Training</h3>
+        <p>Build muscle and strength with our advanced weightlifting programs.</p>
       </div>
       <div class="card">
-        <h3>🏃 Cardio</h3>
-        <p>Improve stamina with treadmill, cycling, and HIIT cardio workouts.</p>
+        <img src="cardio.jpg" alt="Cardio">
+        <h3>Cardio</h3>
+        <p>Improve stamina and heart health with our cardio equipment and classes.</p>
       </div>
       <div class="card">
-        <h3>🧘 Yoga</h3>
-        <p>Enhance flexibility and mindfulness with our yoga classes.</p>
-      </div>
-      <div class="card">
-        <h3>🥊 Boxing</h3>
-        <p>Burn calories and improve agility with our boxing program.</p>
+        <img src="nutrition.jpg" alt="Nutrition">
+        <h3>Nutrition Plans</h3>
+        <p>Get expert meal plans tailored to your body and fitness goals.</p>
       </div>
     </div>
   </section>
@@ -325,46 +294,21 @@
   <!-- Trainers Section -->
   <section id="trainers">
     <h2>Meet Our Trainers</h2>
-    <div class="grid">
-      <div class="card trainer">
+    <div class="card-container">
+      <div class="card">
         <img src="trainer1.jpg" alt="Trainer 1">
         <h3>John Doe</h3>
-        <p>Strength Coach</p>
+        <p>Strength & Conditioning Coach with 10 years of experience.</p>
       </div>
-      <div class="card trainer">
+      <div class="card">
         <img src="trainer2.jpg" alt="Trainer 2">
         <h3>Jane Smith</h3>
-        <p>Yoga Instructor</p>
+        <p>Certified Nutritionist and Personal Trainer.</p>
       </div>
-      <div class="card trainer">
+      <div class="card">
         <img src="trainer3.jpg" alt="Trainer 3">
         <h3>Mike Johnson</h3>
-        <p>Boxing Coach</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Pricing Section -->
-  <section id="pricing" class="pricing">
-    <h2>Membership Plans</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Basic Plan</h3>
-        <p>$20 / month</p>
-        <p>Access to gym equipment</p>
-        <button class="btn-primary">Choose Plan</button>
-      </div>
-      <div class="card">
-        <h3>Standard Plan</h3>
-        <p>$40 / month</p>
-        <p>Includes group classes + equipment</p>
-        <button class="btn-primary">Choose Plan</button>
-      </div>
-      <div class="card">
-        <h3>Premium Plan</h3>
-        <p>$60 / month</p>
-        <p>All access + personal trainer</p>
-        <button class="btn-primary">Choose Plan</button>
+        <p>Cardio Specialist and Group Fitness Instructor.</p>
       </div>
     </div>
   </section>
@@ -372,19 +316,18 @@
   <!-- Contact Section -->
   <section id="contact">
     <h2>Contact Us</h2>
-    <div class="contact-form">
+    <p>Got questions? Reach out to us and we'll get back to you soon!</p>
+    <form>
       <input type="text" placeholder="Your Name" required>
       <input type="email" placeholder="Your Email" required>
       <textarea rows="5" placeholder="Your Message"></textarea>
-      <button class="btn-primary">Send Message</button>
-    </div>
+      <button type="submit">Send Message</button>
+    </form>
   </section>
 
   <!-- Footer -->
   <footer>
-    <p>📍 Training Gym, Main Street, Your City</p>
-    <p>📧 contact@traininggym.com | 📞 +123 456 7890</p>
-    <p>&copy; 2025 Training Gym. All rights reserved.</p>
+    <p>© 2025 Training Gym. All rights reserved.</p>
   </footer>
 
   <script>
