@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>TRAINING GYM</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gallery - Training Gym</title>
   <style>
     /* Reset */
     * {
@@ -112,127 +112,75 @@
       font-size: 18px;
     }
 
-    /* Hero */
-    .hero {
-      background: url("gym image.jpg") no-repeat center center/cover;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    /* Page header */
+    .page-header {
+      padding: 120px 20px 40px;
       text-align: center;
-      color: white;
-      position: relative;
+      background: #111;
     }
 
-    .hero::after {
-      content: "";
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero h1 {
-      font-size: 50px;
-      margin-bottom: 20px;
+    .page-header h1 {
+      font-size: 42px;
       color: #00aaff;
+      margin-bottom: 10px;
     }
 
-    .hero p {
-      font-size: 20px;
-      margin-bottom: 30px;
-    }
-
-    .hero .btn {
+    .page-header p {
+      color: #aaa;
       font-size: 18px;
-      padding: 12px 30px;
     }
 
-    /* Sections */
-    section {
-      padding: 80px 20px;
+    /* Gallery Grid */
+    .gallery {
       max-width: 1200px;
       margin: auto;
-    }
-
-    section h2 {
-      font-size: 32px;
-      margin-bottom: 20px;
-      color: #00aaff;
-      text-align: center;
-    }
-
-    section p {
-      text-align: center;
-      margin-bottom: 40px;
-      color: #bbb;
-    }
-
-    /* Cards grid */
-    .card-container {
+      padding: 40px 20px;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 20px;
     }
 
-    .card {
-      background: #1a1a1a;
-      border-radius: 8px;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-      transition: transform 0.3s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-8px);
-    }
-
-    .card img {
+    .gallery img {
       width: 100%;
       border-radius: 8px;
-      margin-bottom: 15px;
-    }
-
-    .card h3 {
-      color: #00aaff;
-      margin-bottom: 10px;
-    }
-
-    /* Contact form */
-    form {
-      max-width: 600px;
-      margin: auto;
-    }
-
-    form input,
-    form textarea {
-      width: 100%;
-      padding: 14px;
-      margin-bottom: 15px;
-      border: none;
-      border-radius: 6px;
-      background: #222;
-      color: white;
-    }
-
-    form button {
-      background: #00aaff;
-      color: white;
-      padding: 12px 25px;
-      border: none;
-      border-radius: 6px;
       cursor: pointer;
-      font-size: 18px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    form button:hover {
-      background: #0088cc;
+    .gallery img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.6);
+    }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 8px;
+    }
+
+    .lightbox:target {
+      display: flex;
+    }
+
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      font-size: 40px;
+      color: white;
+      text-decoration: none;
     }
 
     /* Footer */
@@ -263,15 +211,15 @@
     </div>
 
     <nav class="desktop">
-      <a href="#">Home</a>
-      <a href="#about">About</a>
-      <a href="#services">Services</a>
-      <a href="#programs">Programs</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#trainers">Trainers</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#blog">Blog</a>
-      <a href="#contact">Contact</a>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="programs.html">Programs</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="trainers.html">Trainers</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
       <a href="login.html" class="btn">Login</a>
       <a href="signup.html" class="btn">Sign Up</a>
     </nav>
@@ -285,114 +233,61 @@
 
     <!-- Mobile Nav -->
     <nav class="mobile" id="mobileMenu">
-      <a href="#">Home</a>
+      <a href="index.html">Home</a>
       <a href="about.html">About</a>
-      <a href="skill.html">Services</a>
-      <a href="#programs">Programs</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#trainers">Trainers</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#blog">Blog</a>
+      <a href="services.html">Services</a>
+      <a href="programs.html">Programs</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="trainers.html">Trainers</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="blog.html">Blog</a>
       <a href="contact.html">Contact</a>
       <a href="login.html" class="btn">Login</a>
       <a href="signup.html" class="btn">Sign Up</a>
     </nav>
   </header>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Push Your Limits</h1>
-      <p>Join Training Gym today and achieve your fitness goals with expert trainers and modern equipment.</p>
-      <a href="join.html" class="btn">Join Now</a>
-    </div>
+  <!-- Page Header -->
+  <div class="page-header">
+    <h1>Our Gym Gallery</h1>
+    <p>Take a look at our modern facilities, equipment, and members in action.</p>
+  </div>
+
+  <!-- Gallery Grid -->
+  <section class="gallery">
+    <a href="#img1"><img src="gallery1.jpg" alt="Gym Image 1"></a>
+    <a href="#img2"><img src="gallery2.jpg" alt="Gym Image 2"></a>
+    <a href="#img3"><img src="gallery3.jpg" alt="Gym Image 3"></a>
+    <a href="#img4"><img src="gallery4.jpg" alt="Gym Image 4"></a>
+    <a href="#img5"><img src="gallery5.jpg" alt="Gym Image 5"></a>
+    <a href="#img6"><img src="gallery6.jpg" alt="Gym Image 6"></a>
   </section>
 
-  <!-- About -->
-  <section id="about">
-    <h2>About Us</h2>
-    <p>We are a modern fitness center focused on strength training, cardio, nutrition, and overall wellness.</p>
-  </section>
-
-  <!-- Services -->
-  <section id="services">
-    <h2>Our Services</h2>
-    <div class="card-container">
-      <div class="card">
-        <img src="weights.jpg" alt="Weight Training">
-        <h3>Weight Training</h3>
-        <p>Boost strength with guided weightlifting sessions.</p>
-      </div>
-      <div class="card">
-        <img src="cardio.jpg" alt="Cardio">
-        <h3>Cardio</h3>
-        <p>Improve stamina and endurance with our cardio programs.</p>
-      </div>
-      <div class="card">
-        <img src="nutrition.jpg" alt="Nutrition">
-        <h3>Nutrition</h3>
-        <p>Custom meal plans tailored to your fitness journey.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Programs -->
-  <section id="programs">
-    <h2>Programs</h2>
-    <p>Choose from a variety of specialized fitness programs designed for every level.</p>
-  </section>
-
-  <!-- Pricing -->
-  <section id="pricing">
-    <h2>Pricing</h2>
-    <div class="card-container">
-      <div class="card">
-        <h3>Basic</h3>
-        <p>$29/month</p>
-      </div>
-      <div class="card">
-        <h3>Standard</h3>
-        <p>$49/month</p>
-      </div>
-      <div class="card">
-        <h3>Premium</h3>
-        <p>$79/month</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Trainers -->
-  <section id="trainers">
-    <h2>Meet Our Trainers</h2>
-    <div class="card-container">
-      <div class="card">
-        <img src="trainer1.jpg" alt="Trainer 1">
-        <h3>John Doe</h3>
-        <p>Strength & Conditioning Coach</p>
-      </div>
-      <div class="card">
-        <img src="trainer2.jpg" alt="Trainer 2">
-        <h3>Jane Smith</h3>
-        <p>Nutrition Expert</p>
-      </div>
-      <div class="card">
-        <img src="trainer3.jpg" alt="Trainer 3">
-        <h3>Mike Johnson</h3>
-        <p>Cardio Specialist</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact">
-    <h2>Contact Us</h2>
-    <form>
-      <input type="text" placeholder="Your Name" required>
-      <input type="email" placeholder="Your Email" required>
-      <textarea rows="5" placeholder="Your Message"></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-  </section>
+  <!-- Lightboxes -->
+  <div id="img1" class="lightbox">
+    <a href="#" class="close">&times;</a>
+    <img src="gallery1.jpg" alt="">
+  </div>
+  <div id="img2" class="lightbox">
+    <a href="#" class="close">&times;</a>
+    <img src="gallery2.jpg" alt="">
+  </div>
+  <div id="img3" class="lightbox">
+    <a href="#" class="close">&times;</a>
+    <img src="gallery3.jpg" alt="">
+  </div>
+  <div id="img4" class="lightbox">
+    <a href="#" class="close">&times;</a>
+    <img src="gallery4.jpg" alt="">
+  </div>
+  <div id="img5" class="lightbox">
+    <a href="#" class="close">&times;</a>
+    <img src="gallery5.jpg" alt="">
+  </div>
+  <div id="img6" class="lightbox">
+    <a href="#" class="close">&times;</a>
+    <img src="gallery6.jpg" alt="">
+  </div>
 
   <!-- Footer -->
   <footer>
@@ -410,4 +305,3 @@
   </script>
 </body>
 </html>
-
