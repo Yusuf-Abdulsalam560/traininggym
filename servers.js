@@ -2,61 +2,57 @@
 const express = require("express");
 const nodemailer = require("nodemailer");
 const bodyParser = require("body-parser");
-const cors = require("cors");
+require("dotenv").config({ path: "/etc/secrets/.env" }); // loads EMAIL_USER & EMAIL_PASS from Render secret file
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 // Middleware
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cors());
 
-// POST route for contact form
+// Health check for Render
+app.get("/healthz", (req, res) => {
+  res.status(200).send("OK");
+});
+
+// Contact form endpoint
 app.post("/contact", async (req, res) => {
   const { name, email, message } = req.body;
 
   if (!name || !email || !message) {
-    return res.status(400).json({ error: "All fields are required" });
+    return res.status(400).json({ success: false, message: "All fields are required." });
   }
 
   try {
-    // Create reusable transporter using Gmail SMTP
-    let transporter = nodemailer.createTransport({
+    // Setup transporter with Gmail
+    const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: process.env.EMAIL_USER, // your Gmail address
-        pass: process.env.EMAIL_PASS, // your App Password (not normal Gmail password)
+        user: process.env.EMAIL_USER, // from .env
+        pass: process.env.EMAIL_PASS, // from .env
       },
     });
 
-    // Email content
-    let mailOptions = {
+    // Email options
+    const mailOptions = {
       from: email,
-      to: process.env.EMAIL_USER, // your Gmail where messages go
+      to: process.env.EMAIL_USER, // you receive it in your Gmail
       subject: `New Contact Form Message from ${name}`,
-      text: `
-        Name: ${name}
-        Email: ${email}
-        Message: ${message}
-      `,
+      text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
     };
 
     // Send email
     await transporter.sendMail(mailOptions);
 
     res.json({ success: true, message: "Message sent successfully!" });
-  } catch (err) {
-    console.error("Error sending email:", err);
-    res.status(500).json({ error: "Failed to send message" });
+  } catch (error) {
+    console.error("Error sending email:", error);
+    res.status(500).json({ success: false, message: "Error sending message." });
   }
 });
 
+// Start server
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
-
-require('dotenv').config({ path: '/etc/secrets/.env' });
-
-app.get("/healthz", (req, res) => {
-  res.status(200).send("OK");
+  console.log(`Server running on http://localhost:${PORT}`);
 });
