@@ -120,3 +120,4 @@ app.get("/blog", (req, res) => {
   res.json(posts);
 });
 
+npm install nodemailer
