@@ -413,6 +413,18 @@
       hamburger.classList.toggle("open");
     });
   </script>
+
+  <script>
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (user) {
+    document.body.insertAdjacentHTML("afterbegin", `<p>Welcome back, ${user.name}!</p>`);
+  } else {
+    // redirect to login if not logged in
+    // window.location.href = "login.html";
+  }
+</script>
+
 </body>
 
 </html>
+
