@@ -323,6 +323,25 @@
       hamburger.classList.toggle("open");
     });
   </script>
+  
+  <div id="blog"></div>
+<script>
+  async function loadBlog() {
+    const res = await fetch("https://traininggym-backend.onrender.com/blog");
+    const posts = await res.json();
+    const blogDiv = document.getElementById("blog");
+    blogDiv.innerHTML = posts.map(p => `
+      <div>
+        <h3>${p.title}</h3>
+        <p>${p.content}</p>
+        <small>${new Date(p.date).toLocaleString()}</small>
+      </div>
+    `).join("");
+  }
+  loadBlog();
+</script>
+
 </body>
 </html>
+
 
