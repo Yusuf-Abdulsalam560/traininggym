@@ -57,3 +57,6 @@ app.listen(PORT, () => {
 
 require('dotenv').config({ path: '/etc/secrets/.env' });
 
+app.get("/healthz", (req, res) => {
+  res.status(200).send("OK");
+});
