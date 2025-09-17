@@ -313,6 +313,21 @@
       hamburger.classList.toggle("open");
     });
   </script>
+  
+<script>
+  const user = getUser();
+  if (!user.token) {
+    alert("Please login first!");
+    window.location.href = "login.html";
+  }
+</script>
+<h2>Welcome to Our Gym Programs, <span id="userName"></span></h2>
+<script>
+  document.getElementById("userName").textContent = user.name;
+</script>
+
+  
 </body>
 </html>
+
 
