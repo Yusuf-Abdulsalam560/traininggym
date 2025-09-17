@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Member Home — Training Gym</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f8;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    header {
+      width: 100%;
+      background: #00aaff;
+      color: white;
+      padding: 15px 20px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+    header button {
+      background: #ff5252;
+      border: none;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .welcome {
+      font-size: 1.5rem;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <button id="logoutBtn">Logout</button>
+  </header>
+
+  <main>
+    <div class="welcome" id="welcomeMsg"></div>
+  </main>
+
+  <script>
+    const stored = localStorage.getItem('tg_user');
+    const user = stored ? JSON.parse(stored) : null;
+
+    if (!user || !user.token) {
+      window.location.href = "login.html";
+    } else {
+      document.getElementById('welcomeMsg').textContent = `Welcome back, ${user.name}!`;
+    }
+
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      localStorage.removeItem('tg_user');
+      alert("You have been logged out.");
+      window.location.href = "login.html";
+    });
+  </script>
+
+</body>
+</html>
