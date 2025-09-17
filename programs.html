@@ -304,30 +304,49 @@
     <p>© 2025 Training Gym. All rights reserved.</p>
   </footer>
 
-  <script>
-    const hamburger = document.getElementById("hamburger");
-    const mobileMenu = document.getElementById("mobileMenu");
-
-    hamburger.addEventListener("click", () => {
-      mobileMenu.classList.toggle("active");
-      hamburger.classList.toggle("open");
-    });
-  </script>
-  
 <script>
-  const user = getUser();
-  if (!user.token) {
+  // Hamburger menu toggle
+  const hamburger = document.getElementById("hamburger");
+  const mobileMenu = document.getElementById("mobileMenu");
+
+  hamburger.addEventListener("click", () => {
+    mobileMenu.classList.toggle("active");
+    hamburger.classList.toggle("open");
+  });
+</script>
+
+<!-- Protect the page -->
+<script>
+  const user = JSON.parse(localStorage.getItem('tg_user') || 'null');
+  if (!user || !user.token) {
     alert("Please login first!");
     window.location.href = "login.html";
   }
 </script>
+
 <h2>Welcome to Our Gym Programs, <span id="userName"></span></h2>
+<div id="content"></div>
+
 <script>
-  document.getElementById("userName").textContent = user.name;
+  window.onload = () => {
+    if (user && user.name) {
+      // Set the username
+      document.getElementById("userName").textContent = user.name;
+
+      // Add dynamic content
+      document.getElementById("content").innerHTML = `
+        <p>Welcome ${user.name}. Here are your available programs:</p>
+        <ul>
+          <li>Beginner Strength Program</li>
+          <li>Fat Loss Group Plan</li>
+          <li>Advanced Athlete Program</li>
+        </ul>
+        <p><a href="profile.html">Manage your bookings</a></p>
+      `;
+    }
+  };
 </script>
 
-  
+
 </body>
 </html>
-
-
