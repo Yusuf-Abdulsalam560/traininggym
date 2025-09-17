@@ -73,3 +73,50 @@ app.get("/", (req, res) => {
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+import nodemailer from "nodemailer";
+
+app.post("/contact", async (req, res) => {
+  const { name, email, message } = req.body;
+
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.GMAIL_USER, // from Render Environment Variables
+        pass: process.env.GMAIL_PASS,
+      },
+    });
+
+    await transporter.sendMail({
+      from: email,
+      to: process.env.GMAIL_USER,
+      subject: `New Contact from ${name}`,
+      text: message,
+    });
+
+    res.json({ success: true, message: "Message sent successfully!" });
+  } catch (err) {
+    res.json({ success: false, message: "Failed to send message." });
+  }
+});
+
+import multer from "multer";
+const upload = multer({ dest: "uploads/" });
+
+app.post("/upload", upload.single("image"), (req, res) => {
+  res.json({ success: true, filename: req.file.filename });
+});
+
+let posts = [];
+
+app.post("/blog", (req, res) => {
+  const { title, content } = req.body;
+  posts.push({ title, content, date: new Date() });
+  res.json({ success: true });
+});
+
+app.get("/blog", (req, res) => {
+  res.json(posts);
+});
+
