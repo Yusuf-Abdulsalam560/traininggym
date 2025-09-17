@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trainers — Training Gym</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin:0; background:#f4f4f8; }
+    header {
+      background: #00aaff; color:white;
+      padding: 15px 20px; display:flex;
+      justify-content: space-between; align-items:center;
+    }
+    header h1 { margin:0; font-size:20px; }
+    header button {
+      background:#ff5252; border:none; color:white;
+      padding:8px 16px; border-radius:4px; cursor:pointer;
+    }
+    main { padding:20px; display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+    .trainer {
+      background:white; padding:15px; border-radius:6px;
+      box-shadow:0 2px 6px rgba(0,0,0,0.1); text-align:center;
+    }
+    .trainer img { width:100%; border-radius:6px; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Meet Our Trainers</h1>
+    <button id="logoutBtn">Logout</button>
+  </header>
+
+  <main>
+    <div class="trainer">
+      <img src="trainer1.jpg" alt="Trainer 1">
+      <h2>John Doe</h2>
+      <p>Expert in Strength Training</p>
+    </div>
+    <div class="trainer">
+      <img src="trainer2.jpg" alt="Trainer 2">
+      <h2>Jane Smith</h2>
+      <p>Yoga & Wellness Specialist</p>
+    </div>
+  </main>
+
+  <!-- Auth check -->
+  <script src="auth.js"></script>
+
+  <!-- Logout -->
+  <script>
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      localStorage.removeItem("tg_user");
+      alert("You have been logged out.");
+      window.location.href = "login.html";
+    });
+  </script>
+
+</body>
+</html>
