@@ -43,7 +43,7 @@
         const user = { name: data.name || payload.email.split('@')[0], token: data.token || `${payload.email}-${Date.now()}` };
         localStorage.setItem('tg_user', JSON.stringify(user));
         msg.innerHTML = '<div class="alert success">Login successful. Redirecting…</div>';
-        setTimeout(()=>location.href='index.html',900);
+        setTimeout(()=>location.href='Home.html',900);
       } else {
         msg.innerHTML = `<div class="alert error">${data.message || 'Login failed'}</div>`;
       }
@@ -54,3 +54,4 @@
 </script>
 </body>
 </html>
+
