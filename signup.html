@@ -1,114 +1,74 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register | Training Gym</title>
-  <style>
-    /* Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: bold;
-      color: #ddd;
-    }
-
-    input:focus {
-      border: 2px solid #00b4d8;
-    }
-
-    .message {
-      text-align: center;
-      margin-top: 1rem;
-      font-size: 0.9rem;
-    }
-
-    .message a {
-      color: #90e0ef;
-      text-decoration: none;
-    }
-
-    .message a:hover {
-      text-decoration: underline;
-    }
-
-    .alert {
-      margin-top: 1rem;
-      padding: 0.75rem;
-      border-radius: 10px;
-      font-size: 0.9rem;
-      text-align: center;
-    }
-
-    .alert.success {
-      background: #06d6a0;
-      color: #fff;
-    }
-
-    .alert.error {
-      background: #ef476f;
-      color: #fff;
-    }
-
-     body { font-family: Arial, sans-serif; background: #f9f9f9; display: flex; align-items: center; justify-content: center; height: 100vh; }
-    form { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); width: 300px; }
-    h2 { text-align: center; margin-bottom: 20px; }
-    input, button { width: 100%; padding: 10px; margin: 8px 0; border-radius: 5px; border: 1px solid #ccc; }
-    button { background: #007bff; color: white; border: none; cursor: pointer; }
-    button:hover { background: #0056b3; }
-  </style>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Register | Training Gym</title>
+<style>
+  body{margin:0;font-family:Inter,Arial;background:linear-gradient(135deg,#0d1b2a,#1b263b);color:#fff;display:flex;align-items:center;justify-content:center;height:100vh}
+  .card{background:rgba(255,255,255,0.04);padding:28px;border-radius:16px;width:100%;max-width:420px;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
+  h2{margin:0 0 12px}
+  label{font-size:13px;color:#cfe8ff}
+  input{width:100%;padding:12px;margin-top:6px;border-radius:10px;border:none;outline:none}
+  .row{display:flex;gap:8px}
+  .btn{background:#00aaff;color:#00121b;padding:12px;border-radius:10px;border:none;margin-top:12px;font-weight:700;width:100%;cursor:pointer}
+  .small{font-size:14px;color:#9fb5cc;margin-top:10px;text-align:center}
+  .alert{padding:10px;border-radius:10px;margin-top:12px}
+  .alert.success{background:#06d6a0;color:#012a19}
+  .alert.error{background:#ef476f;color:#fff}
+  a{color:#90e0ef;text-decoration:none}
+</style>
 </head>
-
 <body>
-  <form id="registerForm">
-    <h2>Create Account</h2>
-    <input type="text" name="name" placeholder="Full Name" required>
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="password" name="password" placeholder="Password" required>
-    <button type="submit">Register</button>
-  </form>
+  <div class="card">
+    <h2>Create account</h2>
+    <form id="registerForm">
+      <label>Full name <input id="name" required /></label>
+      <label>Email <input id="email" type="email" required /></label>
+      <label>Password <input id="password" type="password" required /></label>
+      <button class="btn" type="submit">Sign up</button>
+      <div id="msg"></div>
+      <div class="small">Already have an account? <a href="login.html">Login</a></div>
+    </form>
+  </div>
 
-  
-  <script>
-    const form = document.getElementById("registerForm");
-    const alertBox = document.getElementById("alertBox");
+<script>
+  const API = "https://traininggym-backend.onrender.com"; // replace if needed
+  const form = document.getElementById('registerForm');
+  const msg = document.getElementById('msg');
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
+  function saveUser(data){
+    localStorage.setItem('tg_user', JSON.stringify(data));
+  }
 
-      const name = document.getElementById("name").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value.trim();
-
-      try {
-        const res = await fetch("https://traininggym-backend.onrender.com/register", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, email, password }),
-        });
-
-        const data = await res.json();
-        alertBox.className = "alert " + (data.success ? "success" : "error");
-        alertBox.textContent = data.message;
-
-        if (data.success) {
-          setTimeout(() => {
-            window.location.href = "index.html"; // redirect to home
-          }, 2000);
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    msg.innerHTML = '';
+    const payload = { name: document.getElementById('name').value.trim(), email: document.getElementById('email').value.trim(), password: document.getElementById('password').value };
+    try{
+      const res = await fetch(`${API}/register`, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
+      const data = await res.json();
+      if(res.ok && data.success){
+        // login flow: call login to get token
+        const loginRes = await fetch(`${API}/login`, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email:payload.email,password:payload.password})});
+        const loginData = await loginRes.json();
+        if(loginRes.ok && loginData.success){
+          saveUser({ name: loginData.name || payload.name, token: loginData.token || `${payload.email}-${Date.now()}` });
+          msg.innerHTML = '<div class="alert success">Registered! Redirecting…</div>';
+          setTimeout(()=>location.href='index.html',1200);
+        } else {
+          // fallback: store basic user
+          saveUser({ name: payload.name, token: `${payload.email}-${Date.now()}` });
+          msg.innerHTML = '<div class="alert success">Registered! Redirecting…</div>';
+          setTimeout(()=>location.href='index.html',1200);
         }
-      } catch (err) {
-        alertBox.className = "alert error";
-        alertBox.textContent = "Something went wrong!";
+      } else {
+        msg.innerHTML = `<div class="alert error">${data.message || 'Registration failed'}</div>`;
       }
-    });
-  </script>
+    }catch(err){
+      msg.innerHTML = '<div class="alert error">Server error. Try later.</div>';
+      console.error(err);
+    }
+  });
+</script>
 </body>
 </html>
-
