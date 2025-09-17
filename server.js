@@ -5,10 +5,10 @@ import bcrypt from "bcrypt";
 
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: "https://yusuf-abdulsalam560.github.io" })); // allow your frontend
+app.use(cors({ origin: "https://yusuf-abdulsalam560.github.io" })); // allow frontend
 
-// Fake database for demo (replace later with MongoDB or PostgreSQL)
-const users = [];
+// Fake in-memory database (use real DB later!)
+let users = [];
 
 // REGISTER
 app.post("/register", async (req, res) => {
@@ -16,21 +16,18 @@ app.post("/register", async (req, res) => {
     const { name, email, password } = req.body;
 
     // Check if user already exists
-    const existingUser = users.find(u => u.email === email);
-    if (existingUser) {
-      return res.json({ success: false, message: "Email already registered." });
+    if (users.find((u) => u.email === email)) {
+      return res.status(400).json({ success: false, message: "User already exists" });
     }
 
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Save new user
     const newUser = { name, email, password: hashedPassword };
     users.push(newUser);
 
     res.json({ success: true, message: "Registration successful!" });
   } catch (err) {
-    res.json({ success: false, message: "Error registering user." });
+    res.status(500).json({ success: false, message: "Error registering user." });
   }
 });
 
@@ -38,26 +35,39 @@ app.post("/register", async (req, res) => {
 app.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = users.find(u => u.email === email);
+    const user = users.find((u) => u.email === email);
 
     if (!user) {
-      return res.json({ success: false, message: "User not found." });
+      return res.status(400).json({ success: false, message: "User not found." });
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.json({ success: false, message: "Invalid password." });
+    const valid = await bcrypt.compare(password, user.password);
+    if (!valid) {
+      return res.status(400).json({ success: false, message: "Invalid password." });
     }
 
-    res.json({ success: true, message: "Login successful!" });
+    // Generate simple token (replace with JWT in production)
+    const token = `${email}-${Date.now()}`;
+
+    res.json({
+      success: true,
+      message: "Login successful!",
+      token,
+      name: user.name,
+    });
   } catch (err) {
-    res.json({ success: false, message: "Error logging in." });
+    res.status(500).json({ success: false, message: "Error logging in." });
   }
 });
 
-// Health check for Render
+// Health check (Render requires this)
 app.get("/healthz", (req, res) => {
   res.send("OK");
+});
+
+// Root route
+app.get("/", (req, res) => {
+  res.send("Backend is running ✅");
 });
 
 // Start server
