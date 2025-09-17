@@ -54,3 +54,6 @@ app.post("/contact", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+require('dotenv').config({ path: '/etc/secrets/.env' });
+
