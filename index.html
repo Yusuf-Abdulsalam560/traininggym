@@ -404,18 +404,19 @@
     <p>© 2025 Training Gym. All rights reserved.</p>
   </footer>
 
-  <script>
-    const hamburger = document.getElementById("hamburger");
-    const mobileMenu = document.getElementById("mobileMenu");
+<script>
+  const hamburger = document.getElementById("hamburger");
+  const mobileMenu = document.getElementById("mobileMenu");
 
-    hamburger.addEventListener("click", () => {
-      mobileMenu.classList.toggle("active");
-      hamburger.classList.toggle("open");
-    });
-  </script>
+  hamburger.addEventListener("click", () => {
+    mobileMenu.classList.toggle("active");
+    hamburger.classList.toggle("open");
+  });
+</script>
 
-  <script>
-  const user = JSON.parse(localStorage.getItem("user"));
+<script>
+  // ✅ correction: check tg_user in both localStorage and sessionStorage
+  const user = JSON.parse(localStorage.getItem("tg_user") || sessionStorage.getItem("tg_user"));
   if (user) {
     document.body.insertAdjacentHTML("afterbegin", `<p>Welcome back, ${user.name}!</p>`);
   } else {
@@ -424,7 +425,21 @@
   }
 </script>
 
+<button id="logoutBtn">Logout</button>
+
+<script>
+  const logoutBtn = document.getElementById("logoutBtn");
+  logoutBtn.addEventListener("click", () => {
+    localStorage.removeItem("tg_user");
+    sessionStorage.removeItem("tg_user");
+    alert("You have been logged out.");
+    window.location.href = "login.html";
+  });
+</script>
+
+
 </body>
 
 </html>
+
 
