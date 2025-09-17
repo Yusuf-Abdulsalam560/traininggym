@@ -1,22 +1,28 @@
 <script>
-  // Save token on login
+  // Save token & name on login
   function saveAuth(data) {
-    localStorage.setItem("token", data.token);
-    localStorage.setItem("userName", data.name);
+    const user = { token: data.token, name: data.name };
+    localStorage.setItem("tg_user", JSON.stringify(user));
   }
 
   // Get user
   function getUser() {
-    return {
-      token: localStorage.getItem("token"),
-      name: localStorage.getItem("userName")
-    };
+    const stored = localStorage.getItem("tg_user");
+    return stored ? JSON.parse(stored) : null;
   }
 
   // Logout
   function logout() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userName");
+    localStorage.removeItem("tg_user");
+    window.location.href = "login.html";
+  }
+</script>
+
+<script>
+  // Authentication guard
+  const user = getUser();
+  if (!user || !user.token) {
+    // If not logged in, force redirect
     window.location.href = "login.html";
   }
 </script>
