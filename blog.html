@@ -321,6 +321,13 @@
       hamburger.classList.toggle("open");
     });
   </script>
+ <script>
+  const user = JSON.parse(localStorage.getItem('tg_user') || 'null');
+  if (!user || !user.token) {
+    alert("Please login first!");
+    window.location.href = "login.html";
+  }
+</script>
   
   <div id="blog"></div>
 <script>
@@ -341,6 +348,7 @@
 
 </body>
 </html>
+
 
 
 
