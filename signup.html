@@ -54,12 +54,12 @@
         if(loginRes.ok && loginData.success){
           saveUser({ name: loginData.name || payload.name, token: loginData.token || `${payload.email}-${Date.now()}` });
           msg.innerHTML = '<div class="alert success">Registered! Redirecting…</div>';
-          setTimeout(()=>location.href='index.html',1200);
+          setTimeout(()=>location.href='Home2.html',1200);
         } else {
           // fallback: store basic user
           saveUser({ name: payload.name, token: `${payload.email}-${Date.now()}` });
           msg.innerHTML = '<div class="alert success">Registered! Redirecting…</div>';
-          setTimeout(()=>location.href='index.html',1200);
+          setTimeout(()=>location.href='Home2.html',1200);
         }
       } else {
         msg.innerHTML = `<div class="alert error">${data.message || 'Registration failed'}</div>`;
@@ -72,3 +72,4 @@
 </script>
 </body>
 </html>
+
