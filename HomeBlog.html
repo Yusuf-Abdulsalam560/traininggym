@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blog - Training Gym</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #0d0d0d;
+      color: #ddd;
+      line-height: 1.6;
+    }
+
+    /* Navbar */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(5px);
+      color: white;
+      z-index: 1000;
+    }
+
+    .logo h2 {
+      color: #00aaff;
+      font-weight: bold;
+      font-size: 26px;
+    }
+
+    nav {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-size: 16px;
+      color: white;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #00aaff;
+    }
+
+    nav .btn {
+      background: #00aaff;
+      padding: 8px 18px;
+      border-radius: 4px;
+      color: white;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    nav .btn:hover {
+      background: #0088cc;
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 6px;
+      z-index: 1100;
+    }
+
+    .hamburger span {
+      width: 28px;
+      height: 3px;
+      background: white;
+      border-radius: 3px;
+      transition: 0.4s;
+    }
+
+    /* Mobile nav overlay */
+    nav.mobile {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 250px;
+      height: 100%;
+      background: #111;
+      flex-direction: column;
+      padding: 60px 20px;
+      gap: 20px;
+      transition: right 0.4s ease;
+    }
+
+    nav.mobile.active {
+      right: 0;
+      display: flex;
+    }
+
+    nav.mobile a {
+      font-size: 18px;
+    }
+
+    /* Page header */
+    .page-header {
+      padding: 120px 20px 40px;
+      text-align: center;
+      background: #111;
+    }
+
+    .page-header h1 {
+      font-size: 42px;
+      color: #00aaff;
+      margin-bottom: 10px;
+    }
+
+    .page-header p {
+      color: #aaa;
+      font-size: 18px;
+    }
+
+    /* Blog Grid */
+    .blog {
+      max-width: 1200px;
+      margin: auto;
+      padding: 40px 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 25px;
+    }
+
+    .post {
+      background: #1a1a1a;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease;
+    }
+
+    .post:hover {
+      transform: translateY(-6px);
+    }
+
+    .post img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .post-content {
+      padding: 20px;
+    }
+
+    .post h3 {
+      color: #00aaff;
+      margin-bottom: 10px;
+      font-size: 22px;
+    }
+
+    .post p {
+      color: #bbb;
+      margin-bottom: 15px;
+      font-size: 15px;
+    }
+
+    .date {
+      font-size: 13px;
+      color: #777;
+      margin-bottom: 10px;
+    }
+
+    .post button {
+      background: #00aaff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .post button:hover {
+      background: #0088cc;
+    }
+
+    /* Footer */
+    footer {
+      background: #000;
+      color: #777;
+      padding: 20px;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      nav.desktop {
+        display: none;
+      }
+      .hamburger {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <header>
+    <div class="logo">
+      <h2>TRAINING GYM</h2>
+    </div>
+
+    <nav class="desktop">
+      <a href="Home.html">Home</a>
+      <a href="HomeAbout.html">About</a>
+      <a href="HomeSkill.html">Services</a>
+      <a href="HomeProgram.html">Programs</a>
+      <a href="HomePricing.html">Pricing</a>
+      <a href="HomeTrainers.html">Trainers</a>
+      <a href="HomeGallery.html">Gallery</a>
+      <a href="HomeBlog.html">Blog</a>
+      <a href="HomeContact.html">Contact</a>
+      <button id="logoutBtn">Logout</button>
+    </nav>
+
+    <!-- Hamburger -->
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <!-- Mobile Nav -->
+    <nav class="mobile" id="mobileMenu">
+      <a href="Home.html">Home</a>
+      <a href="HomeAbout.html">About</a>
+      <a href="HomeSkill.html">Services</a>
+      <a href="HomeProgram.html">Programs</a>
+      <a href="HomePricing.html">Pricing</a>
+      <a href="HomeTrainers.html">Trainers</a>
+      <a href="HomeGallery.html">Gallery</a>
+      <a href="HomeBlog.html">Blog</a>
+      <a href="HomeContact.html">Contact</a>
+      <button id="logoutBtn">Logout</button>
+    </nav>
+  </header>
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <h1>Our Blog</h1>
+    <p>Read the latest tips, news, and fitness insights from Training Gym.</p>
+  </div>
+
+  <!-- Blog Section -->
+  <section class="blog">
+    <div class="post">
+      <img src="fitness tips.jpg" alt="Fitness Tips">
+      <div class="post-content">
+        <div class="date">Jan 10, 2025</div>
+        <h3>Top 10 Fitness Tips for Beginners</h3>
+        <p>Starting your fitness journey? Learn the essential tips to stay consistent and avoid injuries.</p>
+        <button>Read More</button>
+      </div>
+    </div>
+
+    <div class="post">
+      <img src="nutrition 1.jpg" alt="Nutrition">
+      <div class="post-content">
+        <div class="date">Jan 25, 2025</div>
+        <h3>Nutrition Hacks for Muscle Growth</h3>
+        <p>Fuel your workouts with the right nutrition. Here’s what you should eat to build strength.</p>
+        <button>Read More</button>
+      </div>
+    </div>
+
+    <div class="post">
+      <img src="yoga.jpg" alt="Yoga">
+      <div class="post-content">
+        <div class="date">Feb 2, 2025</div>
+        <h3>Why Yoga Improves Performance</h3>
+        <p>Discover how yoga enhances flexibility, reduces stress, and improves athletic performance.</p>
+        <button>Read More</button>
+      </div>
+    </div>
+
+    <div class="post">
+      <img src="cardio.jpg" alt="Cardio">
+      <div class="post-content">
+        <div class="date">Feb 12, 2025</div>
+        <h3>Cardio vs Strength Training</h3>
+        <p>Which one should you prioritize? Find out how to balance cardio and strength training.</p>
+        <button>Read More</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Training Gym. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // ✅ Hamburger toggle
+    const hamburger = document.getElementById("hamburger");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+    hamburger.addEventListener("click", () => {
+      mobileMenu.classList.toggle("active");
+      hamburger.classList.toggle("open");
+    });
+
+    // ✅ Load blog posts from backend
+    async function loadBlog() {
+      try {
+        const res = await fetch("https://traininggym-backend.onrender.com/blog");
+        const posts = await res.json();
+        const blogDiv = document.getElementById("blog");
+        blogDiv.innerHTML = posts.map(p => `
+          <div class="blog-post">
+            <h3>${p.title}</h3>
+            <p>${p.content}</p>
+            <small>${new Date(p.date).toLocaleString()}</small>
+          </div>
+        `).join("");
+      } catch (err) {
+        console.error("Failed to load blog:", err);
+        document.getElementById("blog").innerHTML = "<p>Unable to load blog posts.</p>";
+      }
+    }
+    loadBlog();
+
+    // ✅ Auth check + logout
+    function getUser() {
+      return JSON.parse(localStorage.getItem("user"));
+    }
+
+    function logout() {
+      localStorage.removeItem("user");
+      sessionStorage.removeItem("user");
+      document.cookie = "authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      window.location.href = "login.html";
+    }
+
+    // Attach logout event
+    document.getElementById("logoutBtn").addEventListener("click", logout);
+
+    // Redirect if not logged in
+    if (!getUser()) {
+      window.location.href = "login.html";
+    }
+  </script>
+  
+</body>
+</html>
+
+
