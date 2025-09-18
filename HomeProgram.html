@@ -41,19 +41,75 @@
       font-size: 26px;
     }
 
-    #logoutBtn {
+    nav {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-size: 16px;
+      color: white;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #00aaff;
+    }
+
+    nav .btn {
       background: #00aaff;
-      border: none;
-      padding: 8px 16px;
+      padding: 8px 18px;
       border-radius: 4px;
       color: white;
       font-weight: bold;
-      cursor: pointer;
       transition: background 0.3s ease;
     }
 
-    #logoutBtn:hover {
+    nav .btn:hover {
       background: #0088cc;
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 6px;
+      z-index: 1100;
+    }
+
+    .hamburger span {
+      width: 28px;
+      height: 3px;
+      background: white;
+      border-radius: 3px;
+      transition: 0.4s;
+    }
+
+    /* Mobile nav overlay */
+    nav.mobile {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 250px;
+      height: 100%;
+      background: #111;
+      flex-direction: column;
+      padding: 60px 20px;
+      gap: 20px;
+      transition: right 0.4s ease;
+    }
+
+    nav.mobile.active {
+      right: 0;
+      display: flex;
+    }
+
+    nav.mobile a {
+      font-size: 18px;
     }
 
     /* Page header */
@@ -142,7 +198,7 @@
       margin-top: 40px;
     }
 
-       /* Responsive */
+    /* Responsive */
     @media (max-width: 900px) {
       nav.desktop {
         display: none;
@@ -151,32 +207,6 @@
         display: flex;
       }
     }
-    
-    /* Mobile nav overlay */
-    nav.mobile {
-      display: none;
-      position: fixed;
-      top: 0;
-      right: -100%;
-      width: 250px;
-      height: 100%;
-      background: #111;
-      flex-direction: column;
-      padding: 60px 20px;
-      gap: 20px;
-      transition: right 0.4s ease;
-    }
-
-    nav.mobile.active {
-      right: 0;
-      display: flex;
-    }
-
-    nav.mobile a {
-      font-size: 18px;
-    }
-
-    
   </style>
 </head>
 <body>
