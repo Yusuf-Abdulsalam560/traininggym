@@ -28,6 +28,24 @@
     </form>
   </div>
 
+  <script src="auth.js"></script>
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const username = e.target.username.value;
+      const password = e.target.password.value;
+
+      // For now: accept any non-empty credentials
+      if (username && password) {
+        const user = { username };
+        localStorage.setItem("user", JSON.stringify(user));
+        window.location.href = "index.html"; // redirect home
+      } else {
+        alert("Invalid login!");
+      }
+    });
+  </script>
+  
 <script>
   const API = "https://traininggym-backend.onrender.com";
   const form = document.getElementById('loginForm');
@@ -54,5 +72,6 @@
 </script>
 </body>
 </html>
+
 
 
