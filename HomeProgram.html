@@ -238,22 +238,48 @@
     <p>© 2025 Training Gym. All rights reserved.</p>
   </footer>
 
-  <!-- Auth functions -->
-  <script src="auth.js"></script>
+<!-- Auth functions -->
+<script src="auth.js"></script>
 
-  <!-- Welcome + Logout -->
-  <script>
-    const user = getUser();
-    if (!user || !user.token) {
-      // Force redirect if not logged in
-      window.location.href = "login.html";
+<script>
+  // ✅ Hamburger toggle
+  const hamburger = document.getElementById("hamburger");
+  const mobileMenu = document.getElementById("mobileMenu");
+
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener("click", () => {
+      mobileMenu.classList.toggle("active");
+      hamburger.classList.toggle("open");
+    });
+  }
+
+  // ✅ Check user (via auth.js)
+  const user = getUser();
+  if (!user || !user.token) {
+    // Not logged in → redirect
+    window.location.href = "login.html";
+  } else {
+    // Show welcome message
+    const userNameEl = document.getElementById("userName");
+    const welcomeMsgEl = document.getElementById("welcomeMsg");
+
+    if (userNameEl) {
+      userNameEl.textContent = user.name;
+    } else if (welcomeMsgEl) {
+      welcomeMsgEl.textContent = `Welcome back, ${user.name}!`;
     } else {
-      document.getElementById("userName").textContent = user.name;
+      document.body.insertAdjacentHTML("afterbegin", `<p>Welcome back, ${user.name}!</p>`);
     }
+  }
 
-    document.getElementById("logoutBtn").addEventListener("click", () => {
+  // ✅ Logout (via auth.js)
+  const logoutBtn = document.getElementById("logoutBtn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
       logout();
     });
-  </script>
+  }
+</script>
+
 </body>
 </html>
