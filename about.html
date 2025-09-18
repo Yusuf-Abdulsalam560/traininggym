@@ -92,3 +92,13 @@
       At <strong>Training Gym</strong>, we believe fitness is more than just working out—it’s a lifestyle. 
       Our mission is to provide a welcoming space for people of all levels to achieve their fitness goals, 
       whether that’s building strength, improving endurance, or
+
+
+      <script>
+  const user = JSON.parse(localStorage.getItem('tg_user') || 'null');
+  if (!user || !user.token) {
+    alert("Please login first!");
+    window.location.href = "login.html";
+  }
+</script>
+
